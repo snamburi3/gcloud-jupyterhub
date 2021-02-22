@@ -2,11 +2,12 @@ FROM jupyter/datascience-notebook:r-4.0.3
 
 # Install Jupyterlab
 USER root
-RUN pip install --upgrade jupyterlab-git
-RUN jupyter labextension install @jupyterlab/git
-RUN jupyter serverextension enable --py jupyterlab_git
+RUN pip install --upgrade jupyterlab jupyterlab-git
+RUN jupyter lab build
+RUN jupyter server extension enable --py jupyterlab_git
 RUN pip install nbgitpuller
 RUN jupyter serverextension enable --py nbgitpuller --sys-prefix
+
 
 # Install gcloud + crcmod
 RUN apt-get -y update && \
